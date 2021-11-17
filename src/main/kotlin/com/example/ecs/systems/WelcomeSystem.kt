@@ -1,25 +1,23 @@
-package com.example
+package com.example.ecs.systems
 
+import com.example.ecs.components.WelcomeMessage
+import com.mineinabyss.geary.ecs.accessors.ResultScope
+import com.mineinabyss.geary.ecs.api.systems.TickingSystem
 import com.mineinabyss.geary.minecraft.access.toGeary
-import com.mineinabyss.geary.minecraft.dsl.gearyAddon
-import com.mineinabyss.idofront.plugin.registerEvents
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.plugin.java.JavaPlugin
 
-class ExamplePlugin : JavaPlugin(), Listener {
-    override fun onEnable() {
-        registerEvents(this)
+class WelcomeSystem : TickingSystem(), Listener {
+    private val ResultScope.player by get<Player>()
+    private val ResultScope.message by get<WelcomeMessage>()
 
-        gearyAddon {
-            autoscanComponents()
-            systems(
-                WelcomeSystem()
-            )
-        }
+    override fun ResultScope.tick() {
+        player.sendMessage(message.message)
+        entity.remove<WelcomeMessage>()
     }
 
     @EventHandler
