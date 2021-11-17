@@ -1,4 +1,4 @@
-package com.example
+package com.example.ecs.components
 
 import com.mineinabyss.geary.ecs.api.autoscan.AutoscanComponent
 import net.kyori.adventure.text.Component
