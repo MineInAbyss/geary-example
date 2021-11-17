@@ -1,0 +1,7 @@
+name: GearyExample
+version: ${plugin_version}
+author: You!
+load: STARTUP
+main: com.example.ExamplePlugin
+api-version: 1.17
+depend: [ Geary ]
